@@ -18,8 +18,8 @@ jobs:
       with:
         args: --acl public-read --delete
       env:
-        AWS_S3_BUCKET: your-bucket-name
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_S3_BUCKET: my-epamlearn
+        AWS_ACCESS_KEY_ID: ${{ AKIARVP4W5OK6OFAUHDV }}
+        AWS_SECRET_ACCESS_KEY: ${{ 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 }}
         AWS_REGION: us-east-1
         SOURCE_DIR: ./
