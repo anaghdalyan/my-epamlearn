@@ -1,39 +1,17 @@
-name: Deploy to S3
+steps:
+  - uses: actions/checkout@v3
 
-on:
-  push:
-    branches:
-      - main  # փոխիր եթե քո հիմնական ճյուղը այլ անուն ունի
+  - name: Deploy static files to S3
+    uses: jakejarvis/s3-sync-action@master
+    with:
+      args: --delete --exclude ".git/*" --exclude ".github/*"
+    env:
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: 'eu-central-1'
+      SOURCE_DIR: '.'  # կամ 'public' եթե կայքդ public/ մեջ է
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Sync to S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --delete --exclude ".git/*" --exclude ".github/*"
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'eu-central-1'  # փոխիր քո region-ով
-          SOURCE_DIR: 'dist'  # փոխիր, եթե build output-ը այլ տեղ է
 
 
 
