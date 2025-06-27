@@ -17,6 +17,7 @@ jobs:
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --delete --exclude ".git/*" --exclude ".github/*"
+          args: --delete --exclude ".git*" --exclude ".github*"
 
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
